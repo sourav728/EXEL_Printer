@@ -345,7 +345,7 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     //todo image printing code
-    private class AsyncPrint extends AsyncTask<Void, Void, Void> {
+   /* private class AsyncPrint extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -471,6 +471,158 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.printUnicodeText("Due Date/ಪಾವತಿ ಕೊನೆ ದಿನಾಂಕ          :  16/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
             mPrinter.printUnicodeText("Billed On                        :  22/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
 
+            mPrinter.printLineFeed();
+            mPrinter.printBarcode("1234567890123", Barcode.CODE_128, BARCODE_WIDTH, 50, imageAlignment);
+            mPrinter.setAlignmentCenter();
+            mPrinter.printTextLine("1234567890123");
+            mPrinter.printLineFeed();
+
+
+            mPrinter.printLineFeed();
+            mPrinter.printLineFeed();
+            mPrinter.printLineFeed();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mPrinter.disconnectFromPrinter();
+            btnPrint.setEnabled(true);
+            pdWorkInProgress.cancel();
+        }
+    }*/
+
+    private class AsyncPrint extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            btnPrint.setEnabled(false);
+            pdWorkInProgress.setIndeterminate(true);
+            pdWorkInProgress.setMessage("Printing ...");
+            pdWorkInProgress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+            pdWorkInProgress.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            mPrinter.setPrinterWidth(PrinterWidth.PRINT_WIDTH_72MM);
+            mPrinter.resetPrinter();
+
+            mPrinter.setAlignmentCenter();
+            //todo below code isto set font_size for image printing
+            TextPaint var2 = new TextPaint();
+            var2.setColor(-16777216);
+            byte var3 = 23;
+            var2.setTextSize((float) var3);
+            //todo end
+
+            //todo below code isto set font_size for image printing
+            TextPaint var4 = new TextPaint();
+            var4.setColor(-16777216);
+            byte var5 = 30;
+            var4.setTextSize((float) var5);
+            //todo end
+
+            byte b[] = {0x1d, 0x21, 0x00};
+            mPrinter.sendBytes(b);
+            mPrinter.printUnicodeText("ಹುಬ್ಬಳ್ಳಿ ವಿದ್ಯುತ್ ಸರಬರಾಜು ಕಂಪನಿ ನಿಯಮಿತ", Layout.Alignment.ALIGN_CENTER, var4);
+            mPrinter.printUnicodeText("ವಿದ್ಯುತ್ ಬಿಲ್   ELECTRICITY BILL  ", Layout.Alignment.ALIGN_CENTER, var2);
+            mPrinter.printLineFeed();
+            mPrinter.printLineFeed();
+
+            byte n[] = {0x1d, 0x21, 0x00};
+            mPrinter.sendBytes(n);
+
+            mPrinter.setAlignmentLeft();
+            // mPrinter.printTextLine("Sub Division     : 540038\n");
+            mPrinter.printUnicodeText("  ಉಪ ವಿಭಾಗ/Sub Division:" + "csd2.Belagavi", Layout.Alignment.ALIGN_NORMAL, var2);
+            //mPrinter.printTextLine("RRNO             : M62.861\n");
+            //mPrinter.printUnicodeText("RRNO/ಆರ್.ಆರ್ ನಂಬರ್", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಆರ್.ಆರ್.ಸಂಖ್ಯೆ/RRNO             : M62.861", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.setBoldOn();
+            byte b8[] = {0x1d, 0x21, 0x01};
+            mPrinter.sendBytes(b8);
+            //mPrinter.printTextLine("Account ID       : 2120173000\n");
+            mPrinter.printUnicodeText(" ಖಾತೆ ಸಂಖ್ಯೆ/Account ID         : 12345", Layout.Alignment.ALIGN_NORMAL, var4);
+
+            byte n1[] = {0x1d, 0x21, 0x00};
+            mPrinter.sendBytes(n1);
+            mPrinter.setBoldOff();
+
+            mPrinter.setAlignmentCenter();
+            mPrinter.printUnicodeText(" ಹೆಸರು ಮತ್ತು ವಿಳಾಸ/Name and Address", Layout.Alignment.ALIGN_CENTER, var2);
+
+            mPrinter.setAlignmentLeft();
+            mPrinter.printTextLine(" M/S MADHAV INDUS");
+            mPrinter.printTextLine(" SHED NO 1 PL NO 72/2 BELGAUM");
+            mPrinter.printLineFeed();
+
+            mPrinter.printUnicodeText(" ಜಕಾತಿ/Tariff                  : 5LT5A", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.printUnicodeText(" ಮಂ.ಪ್ರಮಾಣ/Sanct Load       HP: 9 KW:  0", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಬ ಿಲ್ಲಿಂಗ್ ಅವಧಿ/Billing Period  : 02/11/2017-02/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ರೀಡಿಂಗ ದಿನಾಂಕ/Reading Date      : 02/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಬಿಲ್ ಸಂಖ್ಯೆ/BillNo              : 2120173000-02/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಮೀಟರ್ ಸಂಖ್ಯೆ/Meter SlNo        : 500009812652", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಇಂದಿನ ಮಾಪನ/Pres Rdg          : 31447  Normal", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಹಿಂದಿನ ಮಾಪನ/Prev Rdg          : 31411  Meter GL", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಮಾಪನ ಸ್ಥಿರಾಂಕ/Constant         : 1", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಬಳಕೆ/Consumption              : 36", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಸರಾಸರಿ/Averageಿ               : 20", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printLineFeed();
+            mPrinter.printLineFeed();
+
+            mPrinter.setAlignmentCenter();
+            mPrinter.printUnicodeText(" ನ ಿಗದಿತ ಶುಲ್ಕ/Fixed Charges", Layout.Alignment.ALIGN_CENTER, var2);
+            mPrinter.printUnicodeText("             9.0*   45.00                  : 24.00", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.printLineFeed();
+
+            mPrinter.setAlignmentCenter();
+            mPrinter.printUnicodeText(" ವಿದ್ಯುತ್ ಶುಲ್ಕ/Energy Charges", Layout.Alignment.ALIGN_CENTER, var2);
+            mPrinter.printUnicodeText("             36.0*  5.10                  : 65.00", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.printLineFeed();
+            mPrinter.printLineFeed();
+            mPrinter.printLineFeed();
+
+            mPrinter.setAlignmentLeft();
+            mPrinter.printUnicodeText(" ಎಫ್.ಎ.ಸಿ/FAC  : 36*  0.13       :                      4.68", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಿಯಾಯಿತಿ/Rebates/TOD   (-)       :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.printUnicodeText(" ಪಿ.ಎಫ್ ದಂಡ/PF Penalty            :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಎಂ.ಡಿ.ದಂಡ/MD Penalty             :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.printUnicodeText(" ಬಡ್ಡಿ/Interest @1%                :                      2.02", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಇತರೆ/Others                      :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.printUnicodeText(" ತೆರಿಗೆ/Tax @6%:                    :                      11.01", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಒಟ್ಟು ಬಿಲ್ ಮೊತ್ತ/Cur Bill Amt       :                      606.31", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಬಾಕಿ/Arrears                      :                      409.00", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.printUnicodeText(" ಜಮಾ/Credits & Adj (-)           :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಸರ್ಕಾರದ ಸಹಾಯಧನ/GOK Subsidy (-)    :                     0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.setBoldOn();
+            byte b9[] = {0x1d, 0x21, 0x01};
+            mPrinter.sendBytes(b9);
+            mPrinter.printUnicodeText(" ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ/Net Amt Due        :                    1015.00", Layout.Alignment.ALIGN_NORMAL, var4);
+            byte n2[] = {0x1d, 0x21, 0x00};
+            mPrinter.sendBytes(n2);
+            mPrinter.setBoldOff();
+
+            mPrinter.printUnicodeText(" ಪಾವತಿ ಕೊನೆ ದಿನಾಂಕ/Due Date            :                    16/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಬಿಲ್ ದಿನಾಂಕ/Billed On                :                    22/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            mPrinter.printUnicodeText(" ಮಾ.ಓ.ಸಂಕೇತ/Mtr.Rdr.Code:           :                    123456 ", Layout.Alignment.ALIGN_NORMAL, var2);
             mPrinter.printLineFeed();
             mPrinter.printBarcode("1234567890123", Barcode.CODE_128, BARCODE_WIDTH, 50, imageAlignment);
             mPrinter.setAlignmentCenter();
