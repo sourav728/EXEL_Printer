@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -27,6 +28,7 @@ import com.cie.btp.Barcode;
 import com.cie.btp.CieBluetoothPrinter;
 import com.cie.btp.DebugLog;
 
+import com.cie.btp.PrintColumnParam;
 import com.cie.btp.PrinterWidth;
 
 import java.io.IOException;
@@ -538,6 +540,15 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.printLineFeed();
             mPrinter.printLineFeed();
 
+            String[] sCol1 = {"ABC","DEFG","H","IJKLM","XYZ"};
+            PrintColumnParam pcp1stCol = new PrintColumnParam(sCol1,59, Layout.Alignment.ALIGN_NORMAL,22,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol2 = {":",":",":",":",":"};
+            PrintColumnParam pcp2ndCol = new PrintColumnParam(sCol2,1,Layout.Alignment.ALIGN_CENTER,22);
+            String[] sCol3 = {"₹1.00","₹20.00","₹300.00","₹4,000.00","₹50,000.89"};
+            PrintColumnParam pcp3rdCol = new PrintColumnParam(sCol3,40,Layout.Alignment.ALIGN_OPPOSITE,22,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            mPrinter.PrintTable(pcp1stCol,pcp2ndCol,pcp3rdCol);
+
+
             byte n[] = {0x1d, 0x21, 0x00};
             mPrinter.sendBytes(n);
 
@@ -595,34 +606,34 @@ public class MainActivity extends AppCompatActivity {
             mPrinter.printLineFeed();
 
             mPrinter.setAlignmentLeft();
-            mPrinter.printUnicodeText(" ಎಫ್.ಎ.ಸಿ/FAC  : 36*  0.13       :                      4.68", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಿಯಾಯಿತಿ/Rebates/TOD   (-)       :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಎಫ್.ಎ.ಸಿ/FAC  : 36*  0.13       :                         4.68", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಿಯಾಯಿತಿ/Rebates/TOD   (-)       :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
 
-            mPrinter.printUnicodeText(" ಪಿ.ಎಫ್ ದಂಡ/PF Penalty            :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಎಂ.ಡಿ.ದಂಡ/MD Penalty             :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಪಿ.ಎಫ್ ದಂಡ/PF Penalty            :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಎಂ.ಡಿ.ದಂಡ/MD Penalty             :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
 
-            mPrinter.printUnicodeText(" ಬಡ್ಡಿ/Interest @1%                :                      2.02", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಇತರೆ/Others                      :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಬಡ್ಡಿ/Interest @1%                :                         2.02", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಇತರೆ/Others                      :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
 
-            mPrinter.printUnicodeText(" ತೆರಿಗೆ/Tax @6%:                    :                      11.01", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಒಟ್ಟು ಬಿಲ್ ಮೊತ್ತ/Cur Bill Amt       :                      606.31", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಬಾಕಿ/Arrears                      :                      409.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ತೆರಿಗೆ/Tax @6%:                    :                         11.01", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಒಟ್ಟು ಬಿಲ್ ಮೊತ್ತ/Cur Bill Amt       :                         606.31", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಬಾಕಿ/Arrears                      :                         409.00", Layout.Alignment.ALIGN_NORMAL, var2);
 
-            mPrinter.printUnicodeText(" ಜಮಾ/Credits & Adj (-)           :                      0.00", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಸರ್ಕಾರದ ಸಹಾಯಧನ/GOK Subsidy (-)    :                     0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಜಮಾ/Credits & Adj (-)           :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಸರ್ಕಾರದ ಸಹಾಯಧನ/GOK Subsidy (-)   :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
 
             mPrinter.setBoldOn();
             byte b9[] = {0x1d, 0x21, 0x01};
             mPrinter.sendBytes(b9);
-            mPrinter.printUnicodeText(" ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ/Net Amt Due        :                    1015.00", Layout.Alignment.ALIGN_NORMAL, var4);
+            mPrinter.printUnicodeText(" ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ/Net Amt Due        :                       1015.00", Layout.Alignment.ALIGN_NORMAL, var4);
             byte n2[] = {0x1d, 0x21, 0x00};
             mPrinter.sendBytes(n2);
             mPrinter.setBoldOff();
 
-            mPrinter.printUnicodeText(" ಪಾವತಿ ಕೊನೆ ದಿನಾಂಕ/Due Date            :                    16/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಬಿಲ್ ದಿನಾಂಕ/Billed On                :                    22/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಪಾವತಿ ಕೊನೆ ದಿನಾಂಕ/Due Date            :                       16/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಬಿಲ್ ದಿನಾಂಕ/Billed On                :                       22/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
 
-            mPrinter.printUnicodeText(" ಮಾ.ಓ.ಸಂಕೇತ/Mtr.Rdr.Code:           :                    123456 ", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText(" ಮಾ.ಓ.ಸಂಕೇತ/Mtr.Rdr.Code:           :                       123456 ", Layout.Alignment.ALIGN_NORMAL, var2);
             mPrinter.printLineFeed();
             mPrinter.printBarcode("1234567890123", Barcode.CODE_128, BARCODE_WIDTH, 50, imageAlignment);
             mPrinter.setAlignmentCenter();
