@@ -28,6 +28,8 @@ import com.cie.btp.Barcode;
 import com.cie.btp.CieBluetoothPrinter;
 import com.cie.btp.DebugLog;
 
+import com.cie.btp.FontStyle;
+import com.cie.btp.FontType;
 import com.cie.btp.PrintColumnParam;
 import com.cie.btp.PrinterWidth;
 
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog pdWorkInProgress;
 
     private static final int BARCODE_WIDTH = 384;
-    private static final int BARCODE_HEIGHT = 100;
+    private static final int BARCODE_HEIGHT = 130;
     private static byte[] LINE_FEED = new byte[]{10};
     private static byte[] RESET_PRINTER = new byte[]{27, 64};
     public static CieBluetoothPrinter mPrinter = CieBluetoothPrinter.INSTANCE;
@@ -535,112 +537,127 @@ public class MainActivity extends AppCompatActivity {
 
             byte b[] = {0x1d, 0x21, 0x00};
             mPrinter.sendBytes(b);
-            mPrinter.printUnicodeText("ಹುಬ್ಬಳ್ಳಿ ವಿದ್ಯುತ್ ಸರಬರಾಜು ಕಂಪನಿ ನಿಯಮಿತ", Layout.Alignment.ALIGN_CENTER, var4);
-            mPrinter.printUnicodeText("ವಿದ್ಯುತ್ ಬಿಲ್   ELECTRICITY BILL  ", Layout.Alignment.ALIGN_CENTER, var2);
-            mPrinter.printLineFeed();
+            mPrinter.printUnicodeText("HUBLI ELECTRICITY SUPPLY",Layout.Alignment.ALIGN_CENTER,var4);
+            mPrinter.printUnicodeText("COMPANY LTD",Layout.Alignment.ALIGN_CENTER,var4);
             mPrinter.printLineFeed();
 
-            String[] sCol1 = {"ABC","DEFG","H","IJKLM","XYZ"};
-            PrintColumnParam pcp1stCol = new PrintColumnParam(sCol1,59, Layout.Alignment.ALIGN_NORMAL,22,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
-            String[] sCol2 = {":",":",":",":",":"};
-            PrintColumnParam pcp2ndCol = new PrintColumnParam(sCol2,1,Layout.Alignment.ALIGN_CENTER,22);
-            String[] sCol3 = {"₹1.00","₹20.00","₹300.00","₹4,000.00","₹50,000.89"};
-            PrintColumnParam pcp3rdCol = new PrintColumnParam(sCol3,40,Layout.Alignment.ALIGN_OPPOSITE,22,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol1 = {"  ಉಪ ವಿಭಾಗ/Sub Division","  ಆರ್.ಆರ್ ನಂಬರ್/RRNO"};
+            PrintColumnParam pcp1stCol = new PrintColumnParam(sCol1,59, Layout.Alignment.ALIGN_NORMAL,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol2 = {":",":"};
+            PrintColumnParam pcp2ndCol = new PrintColumnParam(sCol2,1,Layout.Alignment.ALIGN_CENTER,24);
+            String[] sCol3 = {"csd2.Belagavi  ","M62.861  "};
+            PrintColumnParam pcp3rdCol = new PrintColumnParam(sCol3,40,Layout.Alignment.ALIGN_OPPOSITE,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
             mPrinter.PrintTable(pcp1stCol,pcp2ndCol,pcp3rdCol);
 
 
-            byte n[] = {0x1d, 0x21, 0x00};
-            mPrinter.sendBytes(n);
+           /* String[] sCol4 = {"ಖಾತೆ ಸಂಖ್ಯೆ/Account ID"};
+            PrintColumnParam pcp4stCol = new PrintColumnParam(sCol4,59, Layout.Alignment.ALIGN_NORMAL,37,Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD));
+            String[] sCol5 = {":"};
+            PrintColumnParam pcp5ndCol = new PrintColumnParam(sCol5,1,Layout.Alignment.ALIGN_CENTER,37);
+            String[] sCol6 = {"2120173000"};
+            PrintColumnParam pcp6rdCol = new PrintColumnParam(sCol6,40,Layout.Alignment.ALIGN_OPPOSITE,37,Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD));
+            mPrinter.PrintTable(pcp4stCol,pcp5ndCol,pcp6rdCol);*/
 
+          /*  byte b2[] = {0x1d, 0x21, 0x00};
+            mPrinter.sendBytes(b2);
             mPrinter.setAlignmentLeft();
-            // mPrinter.printTextLine("Sub Division     : 540038\n");
-            mPrinter.printUnicodeText("  ಉಪ ವಿಭಾಗ/Sub Division:" + "csd2.Belagavi", Layout.Alignment.ALIGN_NORMAL, var2);
-            //mPrinter.printTextLine("RRNO             : M62.861\n");
-            //mPrinter.printUnicodeText("RRNO/ಆರ್.ಆರ್ ನಂಬರ್", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಆರ್.ಆರ್.ಸಂಖ್ಯೆ/RRNO             : M62.861", Layout.Alignment.ALIGN_NORMAL, var2);
+            mPrinter.printUnicodeText("ಖಾತೆ ಸಂಖ್ಯೆ/Account ID" + ":"+ " 2120173000", Layout.Alignment.ALIGN_NORMAL, var2);*/
+
             mPrinter.setBoldOn();
             byte b8[] = {0x1d, 0x21, 0x01};
             mPrinter.sendBytes(b8);
-            //mPrinter.printTextLine("Account ID       : 2120173000\n");
-            mPrinter.printUnicodeText(" ಖಾತೆ ಸಂಖ್ಯೆ/Account ID         : 12345", Layout.Alignment.ALIGN_NORMAL, var4);
+            mPrinter.printUnicodeText(space(" ಖಾತೆ ಸಂಖ್ಯೆ/Account ID"+"  "+":"+" 2120173000", 21), Layout.Alignment.ALIGN_NORMAL, var4);
 
             byte n1[] = {0x1d, 0x21, 0x00};
             mPrinter.sendBytes(n1);
             mPrinter.setBoldOff();
 
-            mPrinter.setAlignmentCenter();
+            mPrinter.printLineFeed();
+
             mPrinter.printUnicodeText(" ಹೆಸರು ಮತ್ತು ವಿಳಾಸ/Name and Address", Layout.Alignment.ALIGN_CENTER, var2);
-
-            mPrinter.setAlignmentLeft();
-            mPrinter.printTextLine(" M/S MADHAV INDUS");
-            mPrinter.printTextLine(" SHED NO 1 PL NO 72/2 BELGAUM");
+            mPrinter.printUnicodeText(" M/S MADHAV INDUS",Layout.Alignment.ALIGN_CENTER,var2);
+            mPrinter.printUnicodeText(" SHED NO 1 PL NO 72/2 BELGAUM",Layout.Alignment.ALIGN_CENTER,var2);
             mPrinter.printLineFeed();
 
-            mPrinter.printUnicodeText(" ಜಕಾತಿ/Tariff                  : 5LT5A", Layout.Alignment.ALIGN_NORMAL, var2);
 
-            mPrinter.printUnicodeText(" ಮಂ.ಪ್ರಮಾಣ/Sanct Load       HP: 9 KW:  0", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಬ ಿಲ್ಲಿಂಗ್ ಅವಧಿ/Billing Period  : 02/11/2017-02/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ರೀಡಿಂಗ ದಿನಾಂಕ/Reading Date      : 02/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಬಿಲ್ ಸಂಖ್ಯೆ/BillNo              : 2120173000-02/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಮೀಟರ್ ಸಂಖ್ಯೆ/Meter SlNo        : 500009812652", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಇಂದಿನ ಮಾಪನ/Pres Rdg          : 31447  Normal", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಹಿಂದಿನ ಮಾಪನ/Prev Rdg          : 31411  Meter GL", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಮಾಪನ ಸ್ಥಿರಾಂಕ/Constant         : 1", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಬಳಕೆ/Consumption              : 36", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಸರಾಸರಿ/Averageಿ               : 20", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printLineFeed();
+            String[] sCol7 = {"  ಜಕಾತಿ/Tariff","  ಮಂ.ಪ್ರಮಾಣ/Sanct Load","  ಬಲ್ಲಿಂಗ್ ಅವಧಿ/Billing Period","  ರೀಡಿಂಗ ದಿನಾಂಕ/Reading Date","  ಬಿಲ್ ಸಂಖ್ಯೆ/BillNo","  ಮೀಟರ್ ಸಂಖ್ಯೆ/Meter SlNo","  ಇಂದಿನ ಮಾಪನ/Pres Rdg","  ಹಿಂದಿನ ಮಾಪನ/Prev Rdg","  ಮಾಪನ ಸ್ಥಿರಾಂಕ/Constant","  ಬಳಕೆ/Consumption","  ಸರಾಸರಿ/Average"};
+            PrintColumnParam pcp7stCol = new PrintColumnParam(sCol7,55, Layout.Alignment.ALIGN_NORMAL,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol8 = {":",":",":",":",":",":",":",":",":",":",":"};
+            PrintColumnParam pcp8ndCol = new PrintColumnParam(sCol8,1,Layout.Alignment.ALIGN_CENTER,24);
+            String[] sCol9 = {"5LT5A","HP: 9 KW:  0","02/11/2017-02/12/2017","02/12/2017","2120173000-02/12/2017","500009812652","31447","31411","1","36","20"};
+            PrintColumnParam pcp9rdCol = new PrintColumnParam(sCol9,44,Layout.Alignment.ALIGN_OPPOSITE,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            mPrinter.PrintTable(pcp7stCol,pcp8ndCol,pcp9rdCol);
             mPrinter.printLineFeed();
 
-            mPrinter.setAlignmentCenter();
             mPrinter.printUnicodeText(" ನ ಿಗದಿತ ಶುಲ್ಕ/Fixed Charges", Layout.Alignment.ALIGN_CENTER, var2);
-            mPrinter.printUnicodeText("             9.0*   45.00                  : 24.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            //mPrinter.printUnicodeText("             9.0*   45.00                  : 24.00", Layout.Alignment.ALIGN_NORMAL, var2);
+
+            String[] sCol10 = {"  9.0*   45.00"};
+            PrintColumnParam pcp10stCol = new PrintColumnParam(sCol10,59, Layout.Alignment.ALIGN_NORMAL,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol11 = {":"};
+            PrintColumnParam pcp11ndCol = new PrintColumnParam(sCol11,1,Layout.Alignment.ALIGN_CENTER,24);
+            String[] sCol12 = {"24.00"};
+            PrintColumnParam pcp12rdCol = new PrintColumnParam(sCol12,40,Layout.Alignment.ALIGN_OPPOSITE,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            mPrinter.PrintTable(pcp10stCol,pcp11ndCol,pcp12rdCol);
 
             mPrinter.printLineFeed();
 
             mPrinter.setAlignmentCenter();
             mPrinter.printUnicodeText(" ವಿದ್ಯುತ್ ಶುಲ್ಕ/Energy Charges", Layout.Alignment.ALIGN_CENTER, var2);
-            mPrinter.printUnicodeText("             36.0*  5.10                  : 65.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            //mPrinter.printUnicodeText("             36.0*  5.10                  : 65.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            String[] sCol13 = {"  36.0*  5.10"};
+            PrintColumnParam pcp13stCol = new PrintColumnParam(sCol13,59, Layout.Alignment.ALIGN_NORMAL,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol14 = {":"};
+            PrintColumnParam pcp14ndCol = new PrintColumnParam(sCol14,1,Layout.Alignment.ALIGN_CENTER,24);
+            String[] sCol15 = {"65.00"};
+            PrintColumnParam pcp15rdCol = new PrintColumnParam(sCol15,40,Layout.Alignment.ALIGN_OPPOSITE,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            mPrinter.PrintTable(pcp13stCol,pcp14ndCol,pcp15rdCol);
+
 
             mPrinter.printLineFeed();
             mPrinter.printLineFeed();
-            mPrinter.printLineFeed();
 
-            mPrinter.setAlignmentLeft();
-            mPrinter.printUnicodeText(" ಎಫ್.ಎ.ಸಿ/FAC  : 36*  0.13       :                         4.68", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಿಯಾಯಿತಿ/Rebates/TOD   (-)       :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+            String[] sCol16 = {"  ಎಫ್.ಎ.ಸಿ/FAC","  ಪಿ.ಎಫ್ ದಂಡ/PF Penalty","  ಎಂ.ಡಿ.ದಂಡ/MD Penalty","  ಬಡ್ಡಿ/Interest","  ಇತರೆ/Others","  ತೆರಿಗೆ/Tax @9%","  ಒಟ್ಟು ಬಿಲ್ ಮೊತ್ತ/Cur Bill Amt","  ಬಾಕಿ/Arrears","  ಜಮಾ/Credits & Adj"};
+            PrintColumnParam pcp16stCol = new PrintColumnParam(sCol16,59, Layout.Alignment.ALIGN_NORMAL,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol17 = {":",":",":",":",":",":",":",":",":"};
+            PrintColumnParam pcp17ndCol = new PrintColumnParam(sCol17,1,Layout.Alignment.ALIGN_CENTER,24);
+            String[] sCol18 = {"4.68","0.00","0.00","2.02","0.00","11.01","606.31","409.00","0.00"};
+            PrintColumnParam pcp18rdCol = new PrintColumnParam(sCol18,40,Layout.Alignment.ALIGN_OPPOSITE,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            mPrinter.PrintTable(pcp16stCol,pcp17ndCol,pcp18rdCol);
 
-            mPrinter.printUnicodeText(" ಪಿ.ಎಫ್ ದಂಡ/PF Penalty            :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಎಂ.ಡಿ.ದಂಡ/MD Penalty             :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
-
-            mPrinter.printUnicodeText(" ಬಡ್ಡಿ/Interest @1%                :                         2.02", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಇತರೆ/Others                      :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
-
-            mPrinter.printUnicodeText(" ತೆರಿಗೆ/Tax @6%:                    :                         11.01", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಒಟ್ಟು ಬಿಲ್ ಮೊತ್ತ/Cur Bill Amt       :                         606.31", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಬಾಕಿ/Arrears                      :                         409.00", Layout.Alignment.ALIGN_NORMAL, var2);
-
-            mPrinter.printUnicodeText(" ಜಮಾ/Credits & Adj (-)           :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಸರ್ಕಾರದ ಸಹಾಯಧನ/GOK Subsidy (-)   :                         0.00", Layout.Alignment.ALIGN_NORMAL, var2);
+          /*  String[] sCol19 = {"ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ/Net Amt Due"};
+            PrintColumnParam pcp19stCol = new PrintColumnParam(sCol19,69, Layout.Alignment.ALIGN_NORMAL,37,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol20 = {":"};
+            PrintColumnParam pcp20ndCol = new PrintColumnParam(sCol20,1,Layout.Alignment.ALIGN_CENTER,37);
+            String[] sCol21 = {"1015.00"};
+            PrintColumnParam pcp21rdCol = new PrintColumnParam(sCol21,30,Layout.Alignment.ALIGN_OPPOSITE,37,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            mPrinter.PrintTable(pcp19stCol,pcp20ndCol,pcp21rdCol);*/
 
             mPrinter.setBoldOn();
             byte b9[] = {0x1d, 0x21, 0x01};
             mPrinter.sendBytes(b9);
-            mPrinter.printUnicodeText(" ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ/Net Amt Due        :                       1015.00", Layout.Alignment.ALIGN_NORMAL, var4);
+            mPrinter.printUnicodeText(space(" ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ/Net Amt Due"+" "+":"+" 10.00", 21), Layout.Alignment.ALIGN_NORMAL, var4);
+
             byte n2[] = {0x1d, 0x21, 0x00};
             mPrinter.sendBytes(n2);
             mPrinter.setBoldOff();
 
-            mPrinter.printUnicodeText(" ಪಾವತಿ ಕೊನೆ ದಿನಾಂಕ/Due Date            :                       16/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
-            mPrinter.printUnicodeText(" ಬಿಲ್ ದಿನಾಂಕ/Billed On                :                       22/12/2017", Layout.Alignment.ALIGN_NORMAL, var2);
 
-            mPrinter.printUnicodeText(" ಮಾ.ಓ.ಸಂಕೇತ/Mtr.Rdr.Code:           :                       123456 ", Layout.Alignment.ALIGN_NORMAL, var2);
+            String[] sCol22 = {"  ಪಾವತಿ ಕೊನೆ ದಿನಾಂಕ/Due Date","  ಬಿಲ್ ದಿನಾಂಕ/Billed On","  ಮಾ.ಓ.ಸಂಕೇತ/Mtr.Rdr.Code"};
+            PrintColumnParam pcp22stCol = new PrintColumnParam(sCol22,59, Layout.Alignment.ALIGN_NORMAL,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            String[] sCol23 = {":",":",":"};
+            PrintColumnParam pcp23ndCol = new PrintColumnParam(sCol23,1,Layout.Alignment.ALIGN_CENTER,24);
+            String[] sCol24 = {"1015.00"  ,"08/31/2018","123456"};
+            PrintColumnParam pcp24rdCol = new PrintColumnParam(sCol24,40,Layout.Alignment.ALIGN_OPPOSITE,24,Typeface.create(Typeface.SANS_SERIF,Typeface.NORMAL));
+            mPrinter.PrintTable(pcp22stCol,pcp23ndCol,pcp24rdCol);
+
+
+            mPrinter.printBarcode("1234567890123", Barcode.CODE_128,BARCODE_WIDTH, BARCODE_HEIGHT, imageAlignment);
+            //mPrinter.setAlignmentCenter();
+            mPrinter.setCharRightSpacing(10);
+            mPrinter.printTextLine("  1234567890123\n");
+
             mPrinter.printLineFeed();
-            mPrinter.printBarcode("1234567890123", Barcode.CODE_128, BARCODE_WIDTH, 50, imageAlignment);
-            mPrinter.setAlignmentCenter();
-            mPrinter.printTextLine("1234567890123");
-            mPrinter.printLineFeed();
-
-
             mPrinter.printLineFeed();
             mPrinter.printLineFeed();
             mPrinter.printLineFeed();
@@ -679,8 +696,10 @@ public class MainActivity extends AppCompatActivity {
 
             mPrinter.setPrinterWidth(PrinterWidth.PRINT_WIDTH_72MM);
             mPrinter.resetPrinter();
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.download);
-            mPrinter.printGrayScaleImage(bitmap, 1);
+
+           /* Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.download);
+            mPrinter.printGrayScaleImage(bitmap, 1);*/
+
             mPrinter.setAlignmentCenter();
             //mPrinter.setBoldOn();
             mPrinter.setAlignmentLeft();
